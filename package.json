@@ -1,0 +1,32 @@
+{
+  "name": "book-app",
+  "version": "1.0.0",
+  "description": "Cool book app",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leviiiin/BookApp.git"
+  },
+  "keywords": [
+    "books"
+  ],
+  "author": "Ihor Levin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leviiiin/BookApp/issues"
+  },
+  "homepage": "https://github.com/leviiiin/BookApp#readme",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "eslint": "^8.44.0",
+    "rollup": "^3.26.2"
+  },
+  "dependencies": {
+    "on-change": "^4.0.2",
+    "rollup-plugin-import-css": "^3.3.1"
+  }
+}
