@@ -1,3 +1,5 @@
+import './assets/main.css';
+
 import { FavoritesView } from './views/favorites/favirites.js';
 import { MainView } from './views/main/main';
 

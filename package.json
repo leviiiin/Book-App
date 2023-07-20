@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "build": "rollup -c"
+    "dev": "rimraf dist && rollup -c --watch",
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup -c"
   },
   "repository": {
     "type": "git",
@@ -23,10 +24,15 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.1.0",
     "eslint": "^8.44.0",
-    "rollup": "^3.26.2"
+    "rollup": "^3.26.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-generate-html-template": "^1.7.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^2.0.2"
   },
   "dependencies": {
     "on-change": "^4.0.2",
-    "rollup-plugin-import-css": "^3.3.1"
+    "postcss": "^8.4.26",
+    "rollup-plugin-postcss": "^4.0.2"
   }
 }
