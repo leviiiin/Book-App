@@ -1,9 +1,9 @@
 export class DivComponent {
-	constructor() {
-		this.el = document.createElement('div');
-	}
+  constructor() {
+    this.el = document.createElement('div');
+  }
 
-	render() {
-		this.el;
-	}
+  render() {
+    this.el;
+  }
 }

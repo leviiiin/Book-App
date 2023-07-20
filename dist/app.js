@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function () {
 	'use strict';
 
@@ -1017,13 +1019,13 @@
 	onChange.unsubscribe = proxy => proxy[UNSUBSCRIBE] || proxy;
 
 	class DivComponent {
-		constructor() {
-			this.el = document.createElement('div');
-		}
+	  constructor() {
+	    this.el = document.createElement('div');
+	  }
 
-		render() {
-			this.el;
-		}
+	  render() {
+	    this.el;
+	  }
 	}
 
 	class Header extends DivComponent {
@@ -1036,15 +1038,15 @@
 			this.el.classList.add('header');
 			this.el.innerHTML = `
 			<div>
-				<img src="/static/logo.svg" alt="Логотип" />
+				<img src="./static/logo.svg" alt="Логотип" />
 			</div>
 			<div class="menu">
 				<a class="menu__item" href="#">
-					<img src="/static/search.svg" alt="Поиск иконка" />
+					<img src="./static/search.svg" alt="Поиск иконка" />
 					Поиск книг
 				</a>
 				<a class="menu__item" href="#favorites">
-					<img src="/static/favorites.svg" alt="Избранное иконка" />
+					<img src="./static/favorites.svg" alt="Избранное иконка" />
 					Избранное
 					<div class="menu__counter">
 						${this.appState.favorites.length}
@@ -1297,3 +1299,4 @@
 	new App();
 
 })();
+//# sourceMappingURL=app.js.map
