@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	class AbstractView {
+	class RootView {
 		constructor() {
 			this.app = document.getElementById('root');
 		}
@@ -1016,19 +1016,19 @@
 	onChange.target = proxy => (proxy && proxy[TARGET]) || proxy;
 	onChange.unsubscribe = proxy => proxy[UNSUBSCRIBE] || proxy;
 
-	class DivComponent {
-		constructor() {
-			this.el = document.createElement('div');
+	class RootComponent {
+		constructor(tag = 'div') {
+			this.el = document.createElement(tag);
 		}
 
 		render() {
-			this.el;
+			return this.el;
 		}
 	}
 
-	class Header extends DivComponent {
+	class Header extends RootComponent {
 		constructor(appState) {
-			super();
+			super('header');
 			this.appState = appState;
 		}
 
@@ -1036,15 +1036,15 @@
 			this.el.classList.add('header');
 			this.el.innerHTML = `
 			<div>
-				<img src="/static/logo.svg" alt="Логотип" />
+				<img src="./static/logo.svg" alt="Логотип" />
 			</div>
 			<div class="menu">
 				<a class="menu__item" href="#">
-					<img src="/static/search.svg" alt="Поиск иконка" />
+					<img src="./static/search.svg" alt="Поиск иконка" />
 					Поиск книг
 				</a>
 				<a class="menu__item" href="#favorites">
-					<img src="/static/favorites.svg" alt="Избранное иконка" />
+					<img src="./static/favorites.svg" alt="Избранное иконка" />
 					Избранное
 					<div class="menu__counter">
 						${this.appState.favorites.length}
@@ -1056,7 +1056,7 @@
 		}
 	}
 
-	class Card extends DivComponent {
+	class Card extends RootComponent {
 		constructor(appState, cardState) {
 			super();
 			this.appState = appState;
@@ -1115,7 +1115,7 @@
 		}
 	}
 
-	class CardList extends DivComponent {
+	class CardList extends RootComponent {
 		constructor(appState, parentState) {
 			super();
 			this.appState = appState;
@@ -1129,6 +1129,8 @@
 			}
 			const cardGrid = document.createElement('div');
 			cardGrid.classList.add('card_grid');
+			// todo: оптимізувати рендер карток через 1 фрагмент
+			// https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
 			this.el.append(cardGrid);
 			for (const card of this.parentState.list) {
 				cardGrid.append(new Card(this.appState, card).render());
@@ -1137,7 +1139,7 @@
 		}
 	}
 
-	class FavoritesView extends AbstractView {
+	class FavoritesView extends RootView {
 		constructor(appState) {
 			super();
 			this.appState = appState;
@@ -1172,7 +1174,7 @@
 		}
 	}
 
-	class Search extends DivComponent {
+	class Search extends RootComponent {
 		constructor(state) {
 			super();
 			this.state = state;
@@ -1183,6 +1185,9 @@
 			this.state.searchQuery = value;
 		}
 
+
+		//todo: Відрефакторити код через event submit елемента form
+		// https://learn.javascript.ru/forms-submit
 		render() {
 			this.el.classList.add('search');
 			this.el.innerHTML = `
@@ -1207,7 +1212,16 @@
 		}
 	}
 
-	class MainView extends AbstractView {
+	var BooksService = {
+	    loadList: async (q, offset) => {
+	        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
+	        return res.json();
+	    }
+	};
+
+	// CORE
+
+	class MainView extends RootView {
 		state = {
 			list: [],
 			numFound: 0,
@@ -1238,7 +1252,7 @@
 		async stateHook(path) {
 			if (path === 'searchQuery') {
 				this.state.loading = true;
-				const data = await this.loadList(this.state.searchQuery, this.state.offset);
+				const data = await BooksService.loadList(this.state.searchQuery, this.state.offset);
 				this.state.loading = false;
 				this.state.numFound = data.numFound;
 				this.state.list = data.docs;
@@ -1248,10 +1262,7 @@
 			}
 		}
 
-		async loadList(q, offset) {
-			const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
-			return res.json();
-		}
+		
 
 		render() {
 			const main = document.createElement('div');

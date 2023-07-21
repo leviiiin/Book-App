@@ -1,10 +1,15 @@
-import { AbstractView } from '../../common/view.js';
+// CORE
 import onChange from 'on-change';
+// View
+import { RootView } from '../../common/rootView.js';
+// Components
 import { Header } from '../../components/header/header.js';
 import { Search } from '../../components/search/search.js';
 import { CardList } from '../../components/card-list/card-list.js';
+// Services
+import BooksService from '../../services/books.js';
 
-export class MainView extends AbstractView {
+export class MainView extends RootView {
 	state = {
 		list: [],
 		numFound: 0,
@@ -35,7 +40,7 @@ export class MainView extends AbstractView {
 	async stateHook(path) {
 		if (path === 'searchQuery') {
 			this.state.loading = true;
-			const data = await this.loadList(this.state.searchQuery, this.state.offset);
+			const data = await BooksService.loadList(this.state.searchQuery, this.state.offset);
 			this.state.loading = false;
 			this.state.numFound = data.numFound;
 			this.state.list = data.docs
@@ -45,10 +50,7 @@ export class MainView extends AbstractView {
 		}
 	}
 
-	async loadList(q, offset) {
-		const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
-		return res.json();
-	}
+	
 
 	render() {
 		const main = document.createElement('div');

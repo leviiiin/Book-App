@@ -1,7 +1,7 @@
-import { DivComponent } from '../../common/div-component';
+import { RootComponent } from '../../common/rootComponent';
 import './search.css';
 
-export class Search extends DivComponent {
+export class Search extends RootComponent {
 	constructor(state) {
 		super();
 		this.state = state;
@@ -12,6 +12,9 @@ export class Search extends DivComponent {
 		this.state.searchQuery = value;
 	}
 
+
+	//todo: Відрефакторити код через event submit елемента form
+	// https://learn.javascript.ru/forms-submit
 	render() {
 		this.el.classList.add('search');
 		this.el.innerHTML = `

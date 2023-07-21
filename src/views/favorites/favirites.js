@@ -1,9 +1,9 @@
-import { AbstractView } from '../../common/view.js';
+import { RootView } from '../../common/rootView.js';
 import onChange from 'on-change';
 import { Header } from '../../components/header/header.js';
 import { CardList } from '../../components/card-list/card-list.js';
 
-export class FavoritesView extends AbstractView {
+export class FavoritesView extends RootView {
 	constructor(appState) {
 		super();
 		this.appState = appState;

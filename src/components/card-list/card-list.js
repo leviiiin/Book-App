@@ -1,8 +1,8 @@
-import { DivComponent } from '../../common/div-component';
+import { RootComponent } from '../../common/rootComponent';
 import { Card } from '../card/card';
 import './card-list.css';
 
-export class CardList extends DivComponent {
+export class CardList extends RootComponent {
 	constructor(appState, parentState) {
 		super();
 		this.appState = appState;
@@ -16,6 +16,8 @@ export class CardList extends DivComponent {
 		}
 		const cardGrid = document.createElement('div');
 		cardGrid.classList.add('card_grid');
+		// todo: оптимізувати рендер карток через 1 фрагмент
+		// https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
 		this.el.append(cardGrid);
 		for (const card of this.parentState.list) {
 			cardGrid.append(new Card(this.appState, card).render());
