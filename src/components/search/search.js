@@ -1,7 +1,7 @@
-import { DivComponent } from '../../common/div-component';
+import { RootComponent } from '../../common/root-component';
 import './search.css';
 
-export class Search extends DivComponent {
+export class Search extends RootComponent {
 	constructor(state) {
 		super();
 		this.state = state;

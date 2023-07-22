@@ -1,4 +1,4 @@
-export class AbstractView {
+export class RootView {
 	constructor() {
 		this.app = document.getElementById('root');
 	}

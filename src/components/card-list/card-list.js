@@ -1,8 +1,8 @@
-import { DivComponent } from '../../common/div-component';
+import { RootComponent } from '../../common/root-component';
 import { Card } from '../card/card';
 import './card-list.css';
 
-export class CardList extends DivComponent {
+export class CardList extends RootComponent {
 	constructor(appState, parentState) {
 		super();
 		this.appState = appState;

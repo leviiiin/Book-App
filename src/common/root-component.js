@@ -1,4 +1,4 @@
-export class DivComponent {
+export class RootComponent {
   constructor() {
     this.el = document.createElement('div');
   }

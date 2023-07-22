@@ -1,10 +1,10 @@
-import { AbstractView } from '../../common/view.js';
+import { RootView } from '../../common/root-view.js';
 import onChange from 'on-change';
 import { Header } from '../../components/header/header.js';
 import { Search } from '../../components/search/search.js';
 import { CardList } from '../../components/card-list/card-list.js';
 
-export class MainView extends AbstractView {
+export class MainView extends RootView {
 	state = {
 		list: [],
 		numFound: 0,

@@ -1,7 +1,7 @@
-import { DivComponent } from '../../common/div-component';
+import { RootComponent } from '../../common/root-component';
 import './header.css';
 
-export class Header extends DivComponent {
+export class Header extends RootComponent {
 	constructor(appState) {
 		super();
 		this.appState = appState;
