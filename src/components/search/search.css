@@ -30,9 +30,11 @@
 	color: #494949;
 }
 
-.search button {
+.input-btn {
+	padding: 0 15px;
 	border: none;
 	background: var(--black);
+	color: white;
 	border-radius: 5px;
 	display: flex;
 	align-items: center;

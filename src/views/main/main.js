@@ -45,8 +45,8 @@ export class MainView extends RootView {
 		}
 	}
 
-	async loadList(q, offset) {
-		const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
+	async loadList(q) {
+		const res = await fetch(`https://openlibrary.org/search.json?q=${q}&page=1&limit=6`);
 		return res.json();
 	}
 

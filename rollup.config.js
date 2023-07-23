@@ -1,4 +1,4 @@
-import {nodeResolve} from '@rollup/plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import htmlTemplate from 'rollup-plugin-generate-html-template';
 import postcss from 'rollup-plugin-postcss';
 import copy from 'rollup-plugin-copy';

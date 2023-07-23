@@ -3,7 +3,7 @@
 (function () {
 	'use strict';
 
-	class AbstractView {
+	class RootView {
 		constructor() {
 			this.app = document.getElementById('root');
 		}
@@ -1018,7 +1018,7 @@
 	onChange.target = proxy => (proxy && proxy[TARGET]) || proxy;
 	onChange.unsubscribe = proxy => proxy[UNSUBSCRIBE] || proxy;
 
-	class DivComponent {
+	class RootComponent {
 	  constructor() {
 	    this.el = document.createElement('div');
 	  }
@@ -1028,7 +1028,7 @@
 	  }
 	}
 
-	class Header extends DivComponent {
+	class Header extends RootComponent {
 		constructor(appState) {
 			super();
 			this.appState = appState;
@@ -1058,7 +1058,7 @@
 		}
 	}
 
-	class Card extends DivComponent {
+	class Card extends RootComponent {
 		constructor(appState, cardState) {
 			super();
 			this.appState = appState;
@@ -1117,16 +1117,19 @@
 		}
 	}
 
-	class CardList extends DivComponent {
+	class CardList extends RootComponent {
 		constructor(appState, parentState) {
 			super();
 			this.appState = appState;
 			this.parentState = parentState;
 		}
 
+		// todo: оптимізувати рендер карток через 1 фрагмент
+			// https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
 		render() {
 			if (this.parentState.loading) {
-				this.el.innerHTML = `<div class="card_list__loader">Загрузка...</div>`;
+				this.el.innerHTML = `
+			<div class="card_list__loader">Загрузка...</div>`;
 				return this.el;
 			}
 			const cardGrid = document.createElement('div');
@@ -1139,7 +1142,7 @@
 		}
 	}
 
-	class FavoritesView extends AbstractView {
+	class FavoritesView extends RootView {
 		constructor(appState) {
 			super();
 			this.appState = appState;
@@ -1174,7 +1177,7 @@
 		}
 	}
 
-	class Search extends DivComponent {
+	class Search extends RootComponent {
 		constructor(state) {
 			super();
 			this.state = state;
@@ -1188,7 +1191,7 @@
 		render() {
 			this.el.classList.add('search');
 			this.el.innerHTML = `
-			<div class="search__wrapper">
+			<form class="search__wrapper">
 				<input
 					type="text"
 					placeholder="Найти книгу или автора...."
@@ -1196,20 +1199,18 @@
 					value="${this.state.searchQuery ? this.state.searchQuery : ''}"
 				/>
 				<img src="/static/search.svg" alt="Иконка поиска" />
-			</div>
-			<button aria-label="Искать"><img src="/static/search-white.svg" alt="Иконка поиска" /></button>
+				<input 
+					class="input-btn"
+					type="submit"
+				>
+			</form>
 		`;
-			this.el.querySelector('button').addEventListener('click', this.search.bind(this));
-			this.el.querySelector('input').addEventListener('keydown', (event) => {
-				if (event.code === 'Enter') {
-					this.search();
-				}
-			});
+			this.el.querySelector('form').addEventListener('click', this.search.bind(this));
 			return this.el;
 		}
 	}
 
-	class MainView extends AbstractView {
+	class MainView extends RootView {
 		state = {
 			list: [],
 			numFound: 0,
@@ -1250,8 +1251,8 @@
 			}
 		}
 
-		async loadList(q, offset) {
-			const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
+		async loadList(q) {
+			const res = await fetch(`https://openlibrary.org/search.json?q=${q}&page=1&limit=6`);
 			return res.json();
 		}
 

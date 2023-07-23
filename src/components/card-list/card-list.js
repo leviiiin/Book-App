@@ -9,9 +9,12 @@ export class CardList extends RootComponent {
 		this.parentState = parentState;
 	}
 
+	// todo: оптимізувати рендер карток через 1 фрагмент
+		// https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
 	render() {
 		if (this.parentState.loading) {
-			this.el.innerHTML = `<div class="card_list__loader">Загрузка...</div>`;
+			this.el.innerHTML = `
+			<div class="card_list__loader">Загрузка...</div>`;
 			return this.el;
 		}
 		const cardGrid = document.createElement('div');
