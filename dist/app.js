@@ -1019,8 +1019,8 @@
 	onChange.unsubscribe = proxy => proxy[UNSUBSCRIBE] || proxy;
 
 	class RootComponent {
-	  constructor() {
-	    this.el = document.createElement('div');
+	  constructor(tag = 'div') {
+	    this.el = document.createElement(tag);
 	  }
 
 	  render() {
@@ -1184,9 +1184,10 @@
 			this.state = state;
 		}
 
-		search() {
-			const value = this.el.querySelector('input').value;
-			this.state.searchQuery = value;
+		search(event) {
+			event.preventDefault();
+			const formData = new FormData(this.el);
+			this.state.searchQuery = formData.get('searchInput');
 		}
 
 		render() {
@@ -1194,6 +1195,7 @@
 			this.el.innerHTML = `
 			<div class="search__wrapper">
 				<input
+					name="searchInput"
 					type="text"
 					placeholder="Найти книгу или автора...."
 					class="search__input"
@@ -1209,6 +1211,22 @@
 		}
 	}
 
+	// const a = {
+	// 	name: 'Ihor',
+	// 	age: 19,
+	// 	favorite: [
+	// 		{
+	// 			type: 'food'
+	// 		},
+	// 		{
+	// 			type: 'drin'
+	// 		},
+	// 		{}
+	// 	],
+	// 	getMeMoney: () => {
+
+	// 	} 
+	// }
 	class MainView extends RootView {
 		state = {
 			list: [],
@@ -1341,6 +1359,8 @@
 			console.log(data);
 		});
 
+	// #book-page?id=QUEDSDdd
+	// як дістати з URL query параметри
 	class App {
 		routes = [
 			{path: "", view: MainView },

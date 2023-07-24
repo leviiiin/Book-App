@@ -4,6 +4,22 @@ import { Header } from '../../components/header/header.js';
 import { Search } from '../../components/search/search.js';
 import { CardList } from '../../components/card-list/card-list.js';
 
+// const a = {
+// 	name: 'Ihor',
+// 	age: 19,
+// 	favorite: [
+// 		{
+// 			type: 'food'
+// 		},
+// 		{
+// 			type: 'drin'
+// 		},
+// 		{}
+// 	],
+// 	getMeMoney: () => {
+
+// 	} 
+// }
 export class MainView extends RootView {
 	state = {
 		list: [],

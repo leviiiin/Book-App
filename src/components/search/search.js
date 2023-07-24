@@ -7,9 +7,10 @@ export class Search extends RootComponent {
 		this.state = state;
 	}
 
-	search() {
-		const value = this.el.querySelector('input').value;
-		this.state.searchQuery = value;
+	search(event) {
+		event.preventDefault();
+		const formData = new FormData(this.el);
+		this.state.searchQuery = formData.get('searchInput');
 	}
 
 	render() {
@@ -17,6 +18,7 @@ export class Search extends RootComponent {
 		this.el.innerHTML = `
 			<div class="search__wrapper">
 				<input
+					name="searchInput"
 					type="text"
 					placeholder="Найти книгу или автора...."
 					class="search__input"

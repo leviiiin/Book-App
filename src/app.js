@@ -1,8 +1,10 @@
 import './assets/main.css';
 import { FavoritesView } from './views/favorites/favirites.js';
 import { MainView } from './views/main/main';
-import { BookPage } from './components/book page/book-page';
+import { BookPage } from './views/book-page/book-page';
 
+// #book-page?id=QUEDSDdd
+// як дістати з URL query параметри
 class App {
 	routes = [
 		{path: "", view: MainView },

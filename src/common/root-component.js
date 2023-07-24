@@ -1,6 +1,6 @@
 export class RootComponent {
-  constructor() {
-    this.el = document.createElement('div');
+  constructor(tag = 'div') {
+    this.el = document.createElement(tag);
   }
 
   render() {
