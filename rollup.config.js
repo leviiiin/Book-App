@@ -35,6 +35,7 @@ export default {
     }),
     !isProduction && serve({
       contentBase: 'dist',
+      open: true
     }),
     !isProduction && livereload('dist'),
   ]

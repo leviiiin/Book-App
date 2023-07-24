@@ -3,7 +3,7 @@ import './search.css';
 
 export class Search extends RootComponent {
 	constructor(state) {
-		super();
+		super('form');
 		this.state = state;
 	}
 
@@ -13,23 +13,21 @@ export class Search extends RootComponent {
 	}
 
 	render() {
-		this.el.classList.add('search');
+		this.el.classList.add('search-form');
 		this.el.innerHTML = `
-			<form class="search__wrapper">
+			<div class="search__wrapper">
 				<input
 					type="text"
 					placeholder="Найти книгу или автора...."
 					class="search__input"
 					value="${this.state.searchQuery ? this.state.searchQuery : ''}"
+					
 				/>
 				<img src="/static/search.svg" alt="Иконка поиска" />
-				<input 
-					class="input-btn"
-					type="submit"
-				>
-			</form>
+				<button class="input-btn" type="submit"> </button>
+			</div>
 		`;
-		this.el.querySelector('form').addEventListener('click', this.search.bind(this));
+		this.el.addEventListener('submit', this.search.bind(this));
 		return this.el;
 	}
 }

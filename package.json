@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "dev": "rollup -c --watch",
+    "dev": "rimraf dist && rollup -c --watch",
     "build": "rimraf dist && cross-env NODE_ENV=production rollup -c"
   },
   "repository": {

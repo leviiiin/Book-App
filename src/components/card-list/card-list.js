@@ -25,4 +25,6 @@ export class CardList extends RootComponent {
 		}
 		return this.el;
 	}
+	
 }
+
