@@ -3,24 +3,6 @@
 (function () {
 	'use strict';
 
-	class RootView {
-		constructor() {
-			this.app = document.getElementById('root');
-		}
-
-		setTitle(title) {
-			document.title = title;
-		}
-
-		render() {
-			return;
-		}
-
-		destroy() {
-			return;
-		}
-	}
-
 	const PATH_SEPARATOR = '.';
 	const TARGET = Symbol('target');
 	const UNSUBSCRIBE = Symbol('unsubscribe');
@@ -1018,6 +1000,24 @@
 	onChange.target = proxy => (proxy && proxy[TARGET]) || proxy;
 	onChange.unsubscribe = proxy => proxy[UNSUBSCRIBE] || proxy;
 
+	class RootView {
+		constructor() {
+			this.app = document.getElementById('root');
+		}
+
+		setTitle(title) {
+			document.title = title;
+		}
+
+		render() {
+			return;
+		}
+
+		destroy() {
+			return;
+		}
+	}
+
 	class RootComponent {
 	  constructor(tag = 'div') {
 	    this.el = document.createElement(tag);
@@ -1211,22 +1211,6 @@
 		}
 	}
 
-	// const a = {
-	// 	name: 'Ihor',
-	// 	age: 19,
-	// 	favorite: [
-	// 		{
-	// 			type: 'food'
-	// 		},
-	// 		{
-	// 			type: 'drin'
-	// 		},
-	// 		{}
-	// 	],
-	// 	getMeMoney: () => {
-
-	// 	} 
-	// }
 	class MainView extends RootView {
 		state = {
 			list: [],
@@ -1363,17 +1347,27 @@
 	// як дістати з URL query параметри
 	class App {
 		routes = [
-			{path: "", view: MainView },
-			{path: "#favorites", view: FavoritesView },
-			{path: "#book-page", view: BookPage }
+			{ path: "", view: MainView },
+			{ path: "#favorites", view: FavoritesView },
+			{ path: "#book-page", view: BookPage }
 		];
 		appState = {
 			favorites: []
 		};
 
 		constructor() {
+			// зберегти данні з localstorage в this.appState. JSON.parse()
+			this.appState = onChange(this.appState, this.saveFavorites.bind(this));
+			this.appState = JSON.parse(localStorage.setItem('CARD'));
 			window.addEventListener('hashchange', this.route.bind(this));
 			this.route();
+		}
+		
+		saveFavorites(path) {
+			if (path === 'favorites') {
+				localStorage.getItem('CARD', JSON.stringify(this.appState.favorites));
+				// якщо path = 'favorites', тоді збережи массив в localStorage. JSON.stringify
+			}
 		}
 
 		route() {
