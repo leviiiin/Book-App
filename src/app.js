@@ -20,7 +20,7 @@ class App {
 	constructor() {
 		// зберегти данні з localstorage в this.appState. JSON.parse()
 		this.appState = onChange(this.appState, this.saveFavorites.bind(this));
-		this.appState = JSON.parse(localStorage.setItem('CARD'));
+		// this.appState = JSON.parse(localStorage.setItem('CARD'));
 		window.addEventListener('hashchange', this.route.bind(this));
 		this.route();
 	}

@@ -32,12 +32,19 @@
 
 .input-btn {
 	padding: 0 15px;
-	border: none;
 	background: var(--black);
 	color: white;
+	border: 1px solid black;
 	border-radius: 5px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	font-size: 15px;
+}
+
+.input-btn:hover {
+	background: white;
+	color: black;
+	transition: 300ms;
 }

@@ -3,7 +3,7 @@ import './header.css';
 
 export class Header extends RootComponent {
 	constructor(appState) {
-		super();
+		super('header');
 		this.appState = appState;
 	}
 

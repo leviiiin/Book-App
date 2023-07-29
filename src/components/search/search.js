@@ -26,7 +26,9 @@ export class Search extends RootComponent {
 					
 				/>
 				<img src="/static/search.svg" alt="Иконка поиска" />
-				<button class="input-btn" type="submit"> </button>
+				<button class="input-btn" type="submit">
+					<i class="bi bi-search "></i>
+				</button>
 			</div>
 		`;
 		this.el.addEventListener('submit', this.search.bind(this));
